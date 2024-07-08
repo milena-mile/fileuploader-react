@@ -12,9 +12,9 @@ interface UploadFileArgs {
 
 const uploadFiles = createAsyncThunk<FileData, UploadFileArgs>(
 	"files/uploadFiles",
-	async ({ file, setProgress }: UploadFileArgs, thunkAPI) => {
+	async ({ file, setProgress }: UploadFileArgs) => {
 		const date = new Date();
-		const options = { year: "numeric", month: "short", day: "numeric" };
+		const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "short", day: "numeric" };
 		const formattedDate = date.toLocaleDateString("en-US", options);
 
 		const size =

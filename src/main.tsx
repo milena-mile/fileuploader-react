@@ -10,7 +10,7 @@ import App from './App.tsx';
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ProgressProvider>
-      <HashRouter>
+      <HashRouter basename={import.meta.env.VITE_PUBLIC_URL}>
         <Provider store={store}>
           <App />
         </Provider>

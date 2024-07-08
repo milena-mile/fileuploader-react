@@ -1,7 +1,8 @@
-import './App.scss';
-import { Routes, Route } from 'react-router-dom';
-import Uploader from './components/Uploader/Uploader';
 import FilesList from './components/FilesList/FilesList';
+import NotFound from './components/NotFount/NotFound';
+import Uploader from './components/Uploader/Uploader';
+import { Route, Routes } from 'react-router-dom';
+import './App.scss';
 
 function App() {
 
@@ -9,6 +10,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Uploader/>}/>
       <Route path="/list" element={<FilesList/>}/>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   )
 }
