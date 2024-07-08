@@ -1,0 +1,32 @@
+@mixin button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--bright-color);
+    border-radius: 8px;
+    padding: 10px 20px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.4s;
+    &:hover {
+        @include buttonHover;
+    }
+}
+
+@mixin buttonDark {
+    @include button;
+    background: var(--bright-color);
+    color: #fff;
+}
+
+@mixin buttonLight {
+    @include button;
+    background: #fff;
+    color: var(--bright-color);
+}
+
+@mixin buttonHover {
+    box-shadow: 0 3px 6px 2px rgba(0, 0, 0, 0.3);
+    transition: 0.4s;
+}

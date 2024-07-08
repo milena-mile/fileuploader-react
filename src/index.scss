@@ -1,0 +1,24 @@
+@import "./style/fonts.scss";
+
+body {
+  margin: 0;
+}
+
+* {
+  font-family: "DM Sans", sans-serif;
+  font-size: clamp(17px, 1.2vw, 20px);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: var(--font-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

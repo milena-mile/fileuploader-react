@@ -1,0 +1,31 @@
+.b-loading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: min(40%, 250px);
+    margin: 0 auto;
+    height: 80vh;
+
+    &_files {
+        width: 95%;
+    }
+
+    &_load {
+        width: 40%;
+        margin-top: -25%;
+        margin-left: auto;
+        animation: rotate 2s infinite linear;
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
