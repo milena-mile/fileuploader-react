@@ -60,7 +60,7 @@ const Uploader = () => {
 			])
 
         } catch (error) {
-            if (error instanceof Error && error.message === "Upload failed") {
+            if (error.message === "Upload failed") {
 				setErrorMessage((prevState: string[]) => [
 					...prevState,
 					`File "${file.name}" already exists.`

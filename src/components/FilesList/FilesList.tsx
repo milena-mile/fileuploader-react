@@ -96,6 +96,12 @@ const FilesList = () => {
             .catch(error => console.error("Error deleting document: ", error));
     }
 
+    const sortFiles = () => {
+        return Object.values<FileData>(files).sort((a, b) => {
+            return a.name.localeCompare(b.name);
+        })
+    }
+
 	return (
 		<div className="b-files">
 			<div className="b-files_header" ref={headerRef}>
@@ -114,7 +120,7 @@ const FilesList = () => {
                                 <div className="b-files_size">File size</div>
                                 <div className="b-files_date">Date Uploaded</div>
                             </div>
-						{Object.values<FileData>(files).map((file, i, arr) => (
+						{sortFiles().map((file, i, arr) => (
 							<div className="b-files_item" key={file.id}>
                                 <div className="b-files_name">
                                     <div className="b-files_icon">
