@@ -9,7 +9,7 @@ import { FilesDispatch } from '../../store/store';
 import { firestore, storage } from '../../services/firebase';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import './filesList.scss';
 
 const FilesList = () => {

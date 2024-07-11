@@ -9,12 +9,11 @@ import { v4 as uuidv4 } from 'uuid';
 interface UploadFileArgs {
 	file: File;
 	setProgress: (progress: number) => void;
-	progress: number
 }
 
 const uploadFiles = createAsyncThunk<FileData, UploadFileArgs>(
 	"files/uploadFiles",
-	async ({ file, setProgress, progress }: UploadFileArgs) => {
+	async ({ file, setProgress }: UploadFileArgs) => {
 		const date = new Date();
 		const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "short", day: "numeric" };
 		const formattedDate = date.toLocaleDateString("en-US", options);
@@ -53,8 +52,8 @@ const uploadFiles = createAsyncThunk<FileData, UploadFileArgs>(
 					uploadTask.on(
 						"state_changed",
 						(snapshot) => {
-							const progress1 = 20 + (snapshot.bytesTransferred / snapshot.totalBytes) * 70;
-							setProgress(progress1);
+							const progress = 20 + (snapshot.bytesTransferred / snapshot.totalBytes) * 70;
+							setProgress(progress);
 						},
 						(error) => {
 							reject(error);
