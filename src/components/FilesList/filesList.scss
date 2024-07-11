@@ -44,6 +44,7 @@
 
         @media (max-width: 550px) {
             grid-template: auto auto / 1fr 40px;
+            row-gap: 0;
         }
 
         &.header * {
@@ -131,11 +132,6 @@
                 background: url('../../../public/images/dropdown-hover.svg') no-repeat center center;
             }
         }
-
-        &.top-position .b-files_dropdown {
-            bottom: 100%;
-            top: auto;
-        }
     }
 
     &_actions-button {
@@ -145,6 +141,11 @@
         background: url('../../../public/images/dropdown.svg') no-repeat center center;
         border: none;
         transition: transform 0.3s;
+
+        &.top-position + .b-files_dropdown {
+            bottom: 100%;
+            top: auto;
+        }
     }
 
     &_dropdown {

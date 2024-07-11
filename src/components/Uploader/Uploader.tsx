@@ -9,7 +9,7 @@ import { FilesDispatch } from '../../store/store';
 import './uploader.scss';
 
 const Uploader = () => {
-	const { setProgress } = useProgressContext();
+	const { progress, setProgress } = useProgressContext();
 
 	const [dragging, setDragging] = useState(false);
 	const [message, setMessage] = useState<string[]>([]);
@@ -53,13 +53,14 @@ const Uploader = () => {
 		setUploaded(false);
 
 		try {
-            await dispatch(uploadFiles({ file, setProgress })).unwrap();
+            await dispatch(uploadFiles({ file, setProgress, progress })).unwrap();
 			setMessage((prevState: string[]) => [
 				...prevState,
 				`File "${file.name}" successfully uploaded.`
 			])
 
-        } catch (error) {
+        } catch (error: any) {
+			
             if (error.message === "Upload failed") {
 				setErrorMessage((prevState: string[]) => [
 					...prevState,
@@ -71,9 +72,10 @@ const Uploader = () => {
 
         } finally {
 			setUploaded(true);
+			setProgress(0);
 		}
 	};
-
+	
 	useEffect(() => {
         if (uploaded && errorMessage.length === 0) {
             navigate("/list");

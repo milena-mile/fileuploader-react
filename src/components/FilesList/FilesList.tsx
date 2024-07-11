@@ -17,26 +17,34 @@ const FilesList = () => {
 	const files = useSelector((state: FilesState) => state.files.entities);
 	const loadingStatus = useSelector((state: FilesState) => state.files.filesLoadingStatus);
 
-    const listRef = useRef<HTMLDivElement>(null);
-    const headerRef = useRef<HTMLDivElement>(null);
-
-    const [topClass, setTopClass] = useState<string>("");
+    const dropdownRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
 	useEffect(() => {
 		dispatch(fetchFiles());
 	}, [dispatch]);
 
     useEffect(() => {
-        const getListHeight = () => {
-            if (listRef.current && headerRef.current) {
-                if ((listRef.current.getBoundingClientRect().height + headerRef.current.getBoundingClientRect().height) > window.innerHeight) {
-                    setTopClass("top-position");
-                }
+        const handleDropdownPosition = () => {       
+            if (dropdownRefs.current) {
+                dropdownRefs.current.forEach((item) => {
+                    if (item != null) {
+                        const fromBottom = window.innerHeight - item.getBoundingClientRect().bottom;
+                        if (fromBottom < 150) {
+                            item.classList.add("top-position");
+                        } else {
+                            item.classList.remove("top-position");
+                        }
+                    }
+                })
             }
         }
+        handleDropdownPosition();
 
-        getListHeight(); 
-      }, [loadingStatus]);
+        window.addEventListener('scroll', handleDropdownPosition);
+        return () => {
+          window.removeEventListener('scroll', handleDropdownPosition);
+        };
+    }, [loadingStatus]);
 
     const handleIcon = (type: string) => {
         if (type) {
@@ -104,13 +112,13 @@ const FilesList = () => {
 
 	return (
 		<div className="b-files">
-			<div className="b-files_header" ref={headerRef}>
+			<div className="b-files_header">
 				<div className="b-files_header-title">Files Uploaded</div>
 				<Link to="/" className="button-link--dark">
 					<img src="images/upload-icon.svg" alt="upload icon" />Upload
 				</Link>
 			</div>
-			<div className="b-files" ref={listRef}>
+			<div className="b-files">
 				{loadingStatus === "loading" && <Loading/>}
 				{loadingStatus === "error" && <Error/>}
 				{loadingStatus === "idle" && (
@@ -120,7 +128,7 @@ const FilesList = () => {
                                 <div className="b-files_size">File size</div>
                                 <div className="b-files_date">Date Uploaded</div>
                             </div>
-						{sortFiles().map((file, i, arr) => (
+						{sortFiles().map((file, i) => (
 							<div className="b-files_item" key={file.id}>
                                 <div className="b-files_name">
                                     <div className="b-files_icon">
@@ -131,8 +139,8 @@ const FilesList = () => {
                                 </div>
                                 <div className="b-files_size">{file.size}</div>
                                 <div className="b-files_date">{file.uploadDate}</div>
-                                <div className={`b-files_actions ${(i === arr.length - 1) || (i === arr.length - 2) ? topClass : ""}`}>
-                                    <button className="b-files_actions-button"></button>
+                                <div className="b-files_actions">
+                                    <button className="b-files_actions-button" ref={el => dropdownRefs.current[i] = el}></button>
                                     <div className="b-files_dropdown">
                                         <Link to="#" 
                                               className="b-files_link" 
